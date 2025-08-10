@@ -721,12 +721,12 @@
                 </div>
             </div>
 
-            <!-- Nova Seção com Gemini API -->
+            <!-- Nova Seção com Modelos de Rascunho -->
             <div class="gemini-section bg-green-50 p-6 rounded-lg shadow-sm border border-green-200">
                 <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
-                    Gerador de Rascunho ✨
+                    Modelos de Rascunho ✨
                 </h2>
-                <p class="text-sm text-gray-600 mb-4 text-justify">Escolha um tema ou digite o seu para gerar um parágrafo introdutório para uma redação de concurso.</p>
+                <p class="text-sm text-gray-600 mb-4 text-justify">Escolha um tema para ver modelos de parágrafos para sua redação.</p>
                 
                 <div class="mb-4">
                     <label for="gemini-part-select" class="block text-sm font-medium text-gray-700">Selecione a parte da redação:</label>
@@ -747,19 +747,12 @@
                 <textarea id="gemini-custom-topic" class="w-full h-16 p-2 border rounded-lg text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-400 resize-none" placeholder="Ou digite seu próprio tema aqui..."></textarea>
                 
                 <button id="generate-draft-button" class="mt-4 w-full bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow hover:bg-green-700 transition-colors">
-                    Gerar Rascunho ✨
+                    Ver Modelo ✨
                 </button>
                 
                 <div id="gemini-output" class="mt-4 p-4 bg-white rounded-lg border hidden">
                     <p class="text-sm italic text-gray-500 mb-2" id="gemini-output-title"></p>
                     <div id="gemini-output-text" class="text-gray-800"></div>
-                    <div id="loading-spinner" class="hidden text-center text-gray-500 mt-2">
-                        <svg class="animate-spin h-5 w-5 text-green-500 inline-block mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        Gerando...
-                    </div>
                 </div>
             </div>
 
@@ -1200,102 +1193,67 @@
             setupCommentTooltips();
         }
 
-        // --- Funções de Dados e Renderização originais ---
+        // --- LÓGICA DO GERADOR DE MODELOS DE RASCUNHO (SEM API) ---
         
-        // Define as constantes para os elementos da interface do Gemini
+        const draftModels = {
+            "O papel da gestão democrática na escola pública": {
+                introducao: "A gestão democrática, princípio consagrado na Constituição Federal e na Lei de Diretrizes e Bases da Educação, representa um pilar essencial para a construção de uma escola pública de qualidade. Ao promover a participação ativa de toda a comunidade escolar — incluindo gestores, professores, alunos, pais e funcionários — nas decisões pedagógicas e administrativas, esse modelo de gestão transcende a mera burocracia, tornando-se um instrumento fundamental para o fortalecimento da cidadania e a melhoria do processo de ensino-aprendizagem.",
+                desenvolvimento: "Um dos principais benefícios da gestão democrática é o fortalecimento do Projeto Político-Pedagógico (PPP), que passa a ser construído coletivamente, refletindo as reais necessidades e aspirações da comunidade. Quando pais e alunos participam da definição de metas e estratégias, o sentimento de pertencimento aumenta, o que, consequentemente, impacta de forma positiva no engajamento e na redução dos índices de evasão escolar. A transparência na aplicação dos recursos e a corresponsabilidade nas decisões criam um ambiente mais justo e colaborativo.",
+                conclusao: "Portanto, é fundamental que o poder público, por meio das Secretarias de Educação, invista na formação continuada de gestores escolares, capacitando-os para liderar processos participativos de forma eficaz. Além disso, a escola deve criar e fortalecer canais de comunicação, como conselhos escolares e assembleias periódicas, a fim de garantir que a participação da comunidade não seja apenas protocolar, mas sim uma prática constante e decisiva. Somente assim, a gestão democrática deixará de ser um ideal para se consolidar como a base de uma educação pública verdadeiramente transformadora."
+            },
+            "A importância da educação inclusiva no século XXI": {
+                introducao: "No contexto do século XXI, a educação inclusiva emerge como um direito fundamental e um pilar para a construção de uma sociedade mais justa e equitativa. Superando o antigo modelo de integração, que apenas inseria o aluno com deficiência no ambiente escolar, a inclusão propõe a adaptação da escola para acolher e valorizar a diversidade de todos os estudantes, independentemente de suas condições físicas, intelectuais, sociais ou culturais. Este paradigma desafia as estruturas tradicionais e exige um novo olhar sobre as práticas pedagógicas.",
+                desenvolvimento: "A implementação de uma educação verdadeiramente inclusiva requer, primeiramente, a superação de barreiras atitudinais e arquitetônicas. Isso se traduz na necessidade de formação continuada para os professores, que precisam de ferramentas para adaptar seus currículos e metodologias, e no investimento em recursos de acessibilidade. Um exemplo concreto é a implementação de salas de recursos multifuncionais e a presença de profissionais de apoio, como intérpretes de Libras, que garantem que o processo de aprendizagem seja acessível a todos.",
+                conclusao: "Diante do exposto, é imprescindível que o Ministério da Educação, em parceria com os estados e municípios, fortaleça as políticas públicas de fomento à educação inclusiva, garantindo o repasse de verbas para a adaptação das escolas e a contratação de profissionais especializados. Cabe também à escola promover uma cultura de respeito e empatia, por meio de projetos pedagógicos que discutam a diversidade, com o objetivo de formar cidadãos conscientes de seu papel na construção de um ambiente acolhedor para todos. A inclusão, afinal, beneficia não apenas o aluno com deficiência, mas toda a comunidade escolar."
+            },
+            "Tecnologia como ferramenta pedagógica": {
+                introducao: "A crescente digitalização da sociedade impõe à educação o desafio de integrar as tecnologias de forma crítica e significativa no processo de ensino-aprendizagem. Longe de serem vistas como um fim em si mesmas, as ferramentas tecnológicas, quando bem utilizadas, possuem o potencial de dinamizar as aulas, personalizar o ensino e desenvolver competências essenciais para o século XXI, como o pensamento crítico e a colaboração. Contudo, para que essa integração seja eficaz, é preciso superar a mera transposição de práticas tradicionais para o meio digital.",
+                desenvolvimento: "O uso de plataformas adaptativas, por exemplo, permite que cada aluno avance em seu próprio ritmo, oferecendo atividades personalizadas com base em suas dificuldades e potencialidades, o que representa um avanço em relação ao modelo de aula expositiva tradicional. Além disso, ferramentas de criação, como softwares de edição de vídeo e podcasts, transformam os estudantes de meros consumidores de informação em produtores de conhecimento, promovendo o protagonismo juvenil e o desenvolvimento da criatividade, habilidades cada vez mais valorizadas no mundo contemporâneo.",
+                conclusao: "Para que a tecnologia se consolide como uma aliada da educação, é crucial que os governos invistam maciçamente em infraestrutura, garantindo acesso à internet de qualidade para todas as escolas públicas, e, principalmente, na formação continuada de professores. As secretarias de educação devem oferecer cursos que não apenas ensinem a usar as ferramentas, mas que também discutam as metodologias ativas associadas a elas. Com essa ação conjunta, será possível transformar o potencial da tecnologia em uma realidade concreta na melhoria da qualidade da educação brasileira."
+            },
+            "O papel do Atendimento Educacional Especializado (AEE) na inclusão escolar": {
+                introducao: "O Atendimento Educacional Especializado (AEE), instituído pela Política Nacional de Educação Especial na Perspectiva da Educação Inclusiva, é um serviço fundamental para garantir o pleno acesso, a participação e a aprendizagem de alunos com deficiência, transtornos globais do desenvolvimento e altas habilidades. Realizado preferencialmente no contraturno escolar, o AEE não substitui o ensino regular, mas o complementa, oferecendo recursos e estratégias pedagógicas que eliminam as barreiras para o desenvolvimento desses estudantes, sendo, portanto, um pilar da verdadeira inclusão.",
+                desenvolvimento: "Na prática, o AEE se materializa nas Salas de Recursos Multifuncionais, espaços equipados com materiais didáticos e recursos de acessibilidade específicos para as necessidades de cada aluno. Um professor especializado, por exemplo, pode utilizar softwares de comunicação alternativa para um aluno não verbal ou materiais em Braille para um estudante cego. Esse trabalho individualizado é essencial para que o aluno desenvolva suas potencialidades e tenha as ferramentas necessárias para acompanhar as aulas na sala de aula comum, promovendo sua autonomia e autoestima.",
+                conclusao: "Dessa forma, é imperativo que o poder público continue a investir na expansão e no aprimoramento do AEE. Isso inclui a alocação de recursos para a aquisição de novas tecnologias assistivas e a garantia de formação continuada de qualidade para os professores especializados, por meio de parcerias entre as Secretarias de Educação e as universidades. Adicionalmente, a escola deve promover uma maior articulação entre o professor do AEE e o professor da sala de aula regular, a fim de que as estratégias desenvolvidas no atendimento especializado sejam integradas ao cotidiano escolar, consolidando um ambiente verdadeiramente inclusivo."
+            }
+        };
+
         const generateDraftButton = document.getElementById('generate-draft-button');
         const topicSelect = document.getElementById('gemini-topic-select');
         const customTopicTextarea = document.getElementById('gemini-custom-topic');
         const geminiOutputDiv = document.getElementById('gemini-output');
         const geminiOutputText = document.getElementById('gemini-output-text');
-        const loadingSpinner = document.getElementById('loading-spinner');
         const geminiPartSelect = document.getElementById('gemini-part-select');
         const geminiOutputTitle = document.getElementById('gemini-output-title');
 
-        // --- INSTRUÇÕES IMPORTANTES ---
-        // 1. Obtenha sua chave de API do Google AI Studio: https://aistudio.google.com/
-        // 2. Cole sua chave de API na variável abaixo, substituindo "COLE_SUA_CHAVE_API_AQUI".
-        const GEMINI_API_KEY = "AIzaSyCZRDf8XD18-NxYY1m_s6zTd0vxum4J1N0";
-
-        // Adiciona o event listener para o botão de gerar rascunho
-        generateDraftButton.addEventListener('click', async () => {
-            let topic = topicSelect.value || customTopicTextarea.value.trim();
+        generateDraftButton.addEventListener('click', () => {
+            const selectedTopic = topicSelect.value;
+            const customTopic = customTopicTextarea.value.trim();
             const part = geminiPartSelect.value;
-            let prompt = '';
             let title = '';
+            let content = '';
 
-            if (GEMINI_API_KEY === "AIzaSyCZRDf8XD18-NxYY1m_s6zTd0vxum4J1N0") {
-                geminiOutputText.textContent = 'Erro: A chave de API do Gemini não foi configurada. Por favor, edite o arquivo HTML e adicione sua chave.';
-                geminiOutputDiv.classList.remove('hidden');
-                return;
-            }
-
-            if (!topic) {
+            if (customTopic) {
+                title = `Orientações para o tema: "${customTopic}"`;
+                if (part === 'introducao') {
+                    content = "Para um tema personalizado, sua introdução deve apresentar o assunto, contextualizá-lo brevemente e indicar a tese (seu ponto de vista) que será defendida nos parágrafos seguintes.";
+                } else if (part === 'desenvolvimento') {
+                    content = "No desenvolvimento, apresente um argumento sólido que defenda sua tese. Utilize dados, exemplos concretos, citações de especialistas ou alusões históricas para fortalecer sua argumentação.";
+                } else { // conclusão
+                    content = "Na conclusão, retome a sua tese inicial e proponha uma solução ou intervenção para o problema discutido. Detalhe quem deve realizar a ação, como ela será feita e qual o objetivo esperado.";
+                }
+            } else if (selectedTopic && draftModels[selectedTopic]) {
+                const model = draftModels[selectedTopic];
+                title = `Modelo de ${part} para o tema: "${selectedTopic}"`;
+                content = model[part];
+            } else {
                 alert('Por favor, selecione um tema ou digite o seu para continuar.');
                 return;
             }
 
-            // Define o prompt e o título com base na parte da redação selecionada
-            if (part === 'introducao') {
-                title = 'Introdução gerada:';
-                prompt = `Você é um tutor especializado em preparação para concursos públicos da área de educação. Escreva um parágrafo de introdução para uma redação dissertativo-argumentativa sobre o tema: "${topic}". A introdução deve ser concisa, apresentar o tema, contextualizar a discussão e, de forma sutil, sugerir a linha de argumentação que será desenvolvida. O texto deve ter um tom formal e ser adequado para um exame de alto nível. Responda apenas com o parágrafo de introdução.`;
-            } else if (part === 'desenvolvimento') {
-                title = 'Parágrafo de desenvolvimento gerado:';
-                prompt = `Você é um tutor especializado em preparação para concursos públicos da área de educação. Escreva um parágrafo de desenvolvimento para uma redação dissertativo-argumentativa sobre o tema: "${topic}". O parágrafo deve apresentar um argumento claro, sustentado por um exemplo ou dado concreto. Mantenha um tom formal e linguagem adequada para um exame de alto nível. Responda apenas com o parágrafo de desenvolvimento.`;
-            } else if (part === 'conclusao') {
-                title = 'Conclusão gerada:';
-                prompt = `Você é um tutor especializado em preparação para concursos públicos da área de educação. Escreva um parágrafo de conclusão para uma redação dissertativo-argumentativa sobre o tema: "${topic}". A conclusão deve retomar a tese de forma concisa e apresentar uma proposta de intervenção social relevante e detalhada, sem introduzir novas informações. Mantenha um tom formal e linguagem adequada para um exame de alto nível. Responda apenas com o parágrafo de conclusão.`;
-            }
-            
-            // Desabilita o botão e mostra o spinner
-            generateDraftButton.disabled = true;
-            loadingSpinner.classList.remove('hidden');
-            geminiOutputDiv.classList.add('hidden');
             geminiOutputTitle.textContent = title;
-
-            try {
-                // Configuração da chamada à API
-                const payload = {
-                    contents: [{ parts: [{ text: prompt }] }]
-                };
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-preview-0514:generateContent?key=${GEMINI_API_KEY}`;
-                
-                // Realiza a chamada à API
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                
-                if (!response.ok) {
-                    const errorBody = await response.text();
-                    throw new Error(`Erro na API: ${response.status} ${response.statusText}. Detalhes: ${errorBody}`);
-                }
-                
-                const result = await response.json();
-                
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
-                    
-                    const generatedText = result.candidates[0].content.parts[0].text;
-                    
-                    // Exibe o texto gerado na interface
-                    geminiOutputText.textContent = generatedText;
-                    geminiOutputDiv.classList.remove('hidden');
-                    
-                } else {
-                    throw new Error("A resposta da API não contém o conteúdo esperado.");
-                }
-            } catch (error) {
-                console.error('Erro detalhado ao chamar a API do Gemini:', error);
-                geminiOutputText.textContent = 'Ocorreu um erro ao gerar o rascunho. Verifique sua conexão, a chave de API, e tente novamente.';
-                geminiOutputDiv.classList.remove('hidden');
-            } finally {
-                // Restaura o estado do botão e esconde o spinner
-                generateDraftButton.disabled = false;
-                loadingSpinner.classList.add('hidden');
-            }
+            geminiOutputText.textContent = content;
+            geminiOutputDiv.classList.remove('hidden');
         });
         
         // --- Event Listeners Principais ---
@@ -1337,3 +1295,4 @@
     </script>
 </body>
 </html>
+
