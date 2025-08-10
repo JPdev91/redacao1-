@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apostila de Estudos - Produção Textual</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos gerais e customizados para o template */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .resumo-tabela {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        .resumo-tabela th, .resumo-tabela td {
+            border: 1px solid #e5e7eb;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        .resumo-tabela th {
+            background-color: #f3f4f6;
+            font-weight: 600;
+            color: #1f2937;
+        }
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        @media (min-width: 1024px) {
+            .main-container {
+                grid-template-columns: 2fr 1fr;
+            }
+        }
+        .content-section, .sidebar-section {
+            background-color: #ffffff;
+            padding: 2.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+        }
+        .pin-icon {
+            color: #ef4444; /* Vermelho */
+            font-size: 1.25rem;
+            margin-right: 0.5rem;
+        }
+        /* Estilo para recuo inicial do parágrafo */
+        .text-indent {
+            text-indent: 2em;
+        }
+        /* Estilos para grifo e comentário */
+        .highlighted {
+            background-color: #fde047; /* amarelo */
+            padding: 2px 0;
+            border-radius: 3px;
+            cursor: pointer;
+            position: relative;
+        }
+        .highlighted[data-comment]:hover {
+            background-color: #fcd34d;
+        }
+        .comment-box {
+            display: none;
+            position: absolute;
+            z-index: 10;
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            padding: 12px;
+            min-width: 250px;
+            max-width: 350px;
+            bottom: 125%; /* Posição acima do texto */
+            left: 50%;
+            transform: translateX(-50%);
+            white-space: normal;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            color: #1f2937;
+        }
+        .comment-box::after { /* Seta para baixo */
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 8px;
+            border-style: solid;
+            border-color: #fff transparent transparent transparent;
+        }
+        .comments-section {
+            background-color: #f9fafb;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid #e2e8f0;
+        }
+        .action-buttons {
+            position: absolute;
+            z-index: 20;
+            display: none;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 8px;
+            gap: 8px;
+        }
+        .action-buttons button {
+            background-color: #4a5568;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .action-buttons button:hover {
+            background-color: #2d3748;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 50;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="p-0">
+    <header class="bg-blue-900 text-white p-6 md:p-8 rounded-b-xl flex flex-col items-center text-center mb-8">
+        <h1 class="text-3xl md:text-4xl font-extrabold mb-2 flex items-center justify-center">
+            <img src="https://i.ibb.co/HLmTyPQb/emblema-curso.png" alt="Emblema do curso" class="w-16 h-16 mr-4 rounded-full shadow-lg">
+            Apostila de Estudos – Cursinho Preparatório
+        </h1>
+        <h2 class="text-xl md:text-2xl font-bold mb-1">Produção Textual</h2>
+        <h3 class="text-lg md:text-xl font-semibold">para Concursos da Educação</h3>
+    </header>
+
+    <div class="main-container">
+        <!-- Seção de Conteúdo da Apostila -->
+        <div class="content-section" id="content-section">
+            <!-- Título do Módulo -->
+            <h2 class="text-3xl font-extrabold text-gray-800 mb-6">1. MÓDULO 1 – Fundamentos da Produção Textual em Concursos da Educação</h2>
+
+            <!-- Seção 1.1 -->
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">1.1 A redação como etapa eliminatória e classificatória</h3>
+            <p class="mb-4 text-lg text-justify text-indent">Nos concursos públicos da área da educação, a redação costuma ter peso alto na nota final.</p>
+            <p class="mb-8 text-lg text-justify text-indent">Normalmente, o candidato precisa escrever um texto dissertativo-argumentativo sobre políticas educacionais, legislação, gestão escolar ou temas sociais ligados à educação.</p>
+            
+            <div class="bg-blue-50 p-4 rounded-lg mb-8">
+                <p class="mt-2 text-lg font-bold flex items-center">
+                    <span class="pin-icon">📌</span> Exemplo de temas reais:
+                </p>
+                <ul class="list-disc list-inside mt-2 space-y-1 text-lg pl-4">
+                    <li>O papel da gestão democrática na escola pública</li>
+                    <li>A importância da educação inclusiva no século XXI</li>
+                    <li>Tecnologia como ferramenta pedagógica</li>
+                    <li>O papel do Atendimento Educacional Especializado (AEE) na inclusão escolar</li>
+                </ul>
+            </div>
+
+            <!-- Seção 1.2 -->
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">1.2 Critérios de avaliação mais comuns</h3>
+            <div class="mb-8 overflow-x-auto pl-4">
+                <table class="resumo-tabela min-w-full">
+                    <thead>
+                        <tr>
+                            <th>Critério</th>
+                            <th>O que significa</th>
+                            <th>Exemplo de aplicação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Atendimento ao tema</td>
+                            <td>Responder exatamente ao que foi pedido</td>
+                            <td>Se o tema é educação inclusiva, não focar só em tecnologia</td>
+                        </tr>
+                        <tr>
+                            <td>Coesão</td>
+                            <td>Conexão entre ideias</td>
+                            <td>Uso de conectivos: “portanto”, “além disso”</td>
+                        </tr>
+                        <tr>
+                            <td>Coerência</td>
+                            <td>Lógica interna</td>
+                            <td>Não se contradizer durante o texto</td>
+                        </tr>
+                        <tr>
+                            <td>Norma culta</td>
+                            <td>Gramática e ortografia corretas</td>
+                            <td>“Houveram” ❌ → “Houve” ✅</td>
+                        </tr>
+                        <tr>
+                            <td>Argumentação</td>
+                            <td>Defesa consistente da tese</td>
+                            <td>Citar dados do MEC, autores da área</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Seção sobre Coesão Textual -->
+            <h4 class="text-xl font-bold text-gray-800 mb-4">1.2.1 O que é coesão textual?</h4>
+            <p class="mb-4 text-lg text-justify text-indent">Coesão é o conjunto de mecanismos linguísticos que conectam as partes de um texto, garantindo que frases e parágrafos se unam de forma fluida e lógica.</p>
+            <p class="mb-4 text-lg text-justify text-indent">Ela não garante que o texto faça sentido (isso é função da coerência), mas garante que ele seja bem “costurado”.</p>
+            <p class="mb-8 text-lg text-justify text-indent">Pense que a coesão é como a cola que une as ideias.</p>
+
+            <div class="bg-blue-50 p-4 rounded-lg mb-8">
+                <p class="mt-2 text-lg font-bold flex items-center">
+                    <span class="pin-icon">📌</span> Exemplo:
+                </p>
+                <div class="mt-2 space-y-2 text-lg pl-4">
+                    <p class="font-bold">Sem coesão:</p>
+                    <p class="italic">A escola precisa de reformas. Os professores reclamam. A gestão não sabe o que fazer.</p>
+                    <p class="font-bold">Com coesão:</p>
+                    <p class="italic">A escola precisa de reformas, o que tem gerado reclamações dos professores, enquanto a gestão busca soluções.</p>
+                </div>
+            </div>
+
+            <h4 class="text-xl font-bold text-gray-800 mb-4">1.2.2 Tipos de coesão</h4>
+            <h5 class="text-lg font-semibold text-gray-700 mb-2">1.2.2.1 Coesão Referencial</h5>
+            <p class="mb-2 text-lg text-justify text-indent">Ocorre quando usamos pronomes ou expressões para retomar termos já citados.</p>
+            <p class="mb-4 text-lg text-justify text-indent">Função: Evitar repetição.</p>
+            
+            <div class="mb-8 overflow-x-auto pl-4">
+                <table class="resumo-tabela min-w-full">
+                    <thead>
+                        <tr>
+                            <th>Sem coesão</th>
+                            <th>Com coesão</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Maria é professora. Maria gosta de inovar. Maria usa tecnologia.</td>
+                            <td>Maria é professora. Ela gosta de inovar e utiliza tecnologia.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h5 class="text-lg font-semibold text-gray-700 mb-2">1.2.2.2 Coesão Sequencial</h5>
+            <p class="mb-2 text-lg text-justify text-indent">Usa conectivos e marcadores textuais para indicar relação entre ideias.</p>
+            <p class="mb-4 text-lg text-justify text-indent">Função: Organizar o fluxo lógico.</p>
+
+            <div class="bg-blue-50 p-4 rounded-lg mb-8">
+                <p class="mt-2 text-lg font-bold flex items-center">
+                    <span class="pin-icon">📌</span> Principais conectivos:
+                </p>
+                <div class="mt-4 overflow-x-auto pl-4">
+                    <table class="resumo-tabela min-w-full">
+                        <thead>
+                            <tr>
+                                <th>Função</th>
+                                <th>Exemplos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Adição</td>
+                                <td>e, além disso, também</td>
+                            </tr>
+                            <tr>
+                                <td>Oposição</td>
+                                <td>mas, porém, no entanto</td>
+                            </tr>
+                            <tr>
+                                <td>Causa</td>
+                                <td>porque, visto que, já que</td>
+                            </tr>
+                            <tr>
+                                <td>Consequência</td>
+                                <td>portanto, assim, logo</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <h5 class="text-lg font-semibold text-gray-700 mb-2">1.2.2.3 Coesão Lexical</h5>
+            <p class="mb-4 text-lg text-justify text-indent">Repetição controlada ou substituição por sinônimos.</p>
+            <p class="mb-4 text-lg text-justify text-indent">Função: Variar o vocabulário sem perder o sentido.</p>
+            
+            <div class="bg-blue-50 p-4 rounded-lg mb-8">
+                <p class="mt-2 text-lg font-bold flex items-center">
+                    <span class="pin-icon">📌</span> Exemplo:
+                </p>
+                <p class="italic mt-2 pl-4">A escola promoveu um evento cultural. A instituição reuniu alunos, professores e pais para prestigiar as apresentações.</p>
+            </div>
+
+            <h5 class="text-lg font-semibold text-gray-700 mb-2">1.2.2.4 Coesão por Elipse</h5>
+            <p class="mb-4 text-lg text-justify text-indent">Quando omitimos um termo que pode ser subentendido pelo contexto.</p>
+            <div class="bg-blue-50 p-4 rounded-lg mb-8">
+                <p class="mt-2 text-lg font-bold flex items-center">
+                    <span class="pin-icon">📌</span> Exemplo:
+                </p>
+                <p class="italic mt-2 pl-4">Os professores participaram da reunião; os alunos, não. (“participaram” está implícito na segunda parte)</p>
+            </div>
+
+            <h5 class="text-lg font-semibold text-gray-700 mb-2">1.2.2.5 Coesão por Substituição</h5>
+            <p class="mb-4 text-lg text-justify text-indent">Trocar uma palavra ou expressão por outra equivalente.</p>
+            <p class="mb-4 text-lg text-justify text-indent">Muito usada para evitar repetições.</p>
+            <div class="bg-blue-50 p-4 rounded-lg mb-8">
+                <p class="mt-2 text-lg font-bold flex items-center">
+                    <span class="pin-icon">📌</span> Exemplo:
+                </p>
+                <p class="italic mt-2 pl-4">O gestor apresentou o projeto pedagógico. O documento foi aprovado pelo conselho escolar.</p>
+            </div>
+
+            <h4 class="text-xl font-bold text-gray-800 mb-4">1.2.3 Por que a coesão é essencial na redação de concurso da educação?</h4>
+            <ul class="list-disc list-inside mb-8 space-y-2 text-lg pl-4">
+                <li>É critério de correção em praticamente todos os editais.</li>
+                <li>Facilita a leitura e compreensão pelo avaliador.</li>
+                <li>Transmite profissionalismo e domínio da norma culta.</li>
+            </ul>
+
+            <h4 class="text-xl font-bold text-gray-800 mb-4">1.2.4 Erros comuns que prejudicam a coesão</h4>
+            <div class="mb-8 overflow-x-auto pl-4">
+                <table class="resumo-tabela min-w-full">
+                    <thead>
+                        <tr>
+                            <th>Erro</th>
+                            <th>Exemplo</th>
+                            <th>Como corrigir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Contradição</td>
+                            <td>“A BNCC garante autonomia docente, por isso todos devem seguir o mesmo material obrigatório.”</td>
+                            <td>Ajustar para que as ideias sejam compatíveis</td>
+                        </tr>
+                        <tr>
+                            <td>Falta de foco</td>
+                            <td>Começa sobre educação infantil e termina falando de esportes profissionais</td>
+                            <td>Manter todas as ideias ligadas ao tema</td>
+                        </tr>
+                        <tr>
+                            <td>Argumentos ilógicos</td>
+                            <td>“Quanto mais aulas, menos aprendizado.”</td>
+                            <td>Apresentar relação lógica ou dados que sustentem</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Seção sobre Coerência Textual -->
+            <h4 class="text-xl font-bold text-gray-800 mb-4">1.2.5 O que é coerência textual?</h4>
+            <p class="mb-4 text-lg text-justify text-indent">Coerência é a qualidade que garante que o texto faça sentido, mantendo lógica interna e relação com o conhecimento de mundo do leitor.</p>
+            <p class="mb-4 text-lg text-justify text-indent">Enquanto a coesão é a cola que liga as frases, a coerência é o fio condutor que faz o texto ter sentido global.</p>
+            
+            <div class="bg-blue-50 p-4 rounded-lg mb-8">
+                <p class="mt-2 text-lg font-bold flex items-center">
+                    <span class="pin-icon">📌</span> Exemplo:
+                </p>
+                <div class="mt-2 space-y-2 text-lg pl-4">
+                    <p class="font-bold">Com coesão, mas sem coerência:</p>
+                    <p class="italic">Os alunos participaram ativamente da aula, portanto o professor precisou pedir silêncio. (Há conectivo, mas a relação é ilógica.)</p>
+                    <p class="font-bold">Com coerência e coesão:</p>
+                    <p class="italic">Os alunos estavam conversando muito, por isso o professor precisou pedir silêncio.</p>
+                </div>
+            </div>
+
+            <h4 class="text-xl font-bold text-gray-800 mb-4">1.2.5.1 Princípios da coerência textual</h4>
+            <h5 class="text-lg font-semibold text-gray-700 mb-2">1.2.5.1.1 Relevância</h5>
+            <p class="mb-2 text-lg text-justify text-indent">O texto deve apresentar informações relacionadas ao tema.</p>
+            <p class="mb-4 text-lg text-justify text-indent">
+                <span class="font-bold">📌 Erro:</span> inserir informações aleatórias que desviam o foco.
+            </p>
+            <p class="mb-2 font-bold pl-4">Tema: Avaliação escolar</p>
+            <p class="italic pl-4">❌ “A escola precisa melhorar a avaliação. Além disso, o bairro precisa de mais transporte público.”</p>
+            <p class="italic mb-4 pl-4">✅ “A escola precisa melhorar a avaliação, incorporando métodos formativos que favoreçam o aprendizado.”</p>
+
+            <h5 class="text-lg font-semibold text-gray-700 mb-2">1.2.5.1.2 Não contradição</h5>
+            <p class="mb-2 text-lg text-justify text-indent">O texto não pode se contradizer.</p>
+            <p class="italic pl-4">❌ “A gestão democrática exige participação de todos, mas a comunidade escolar não deve opinar.”</p>
+            <p class="italic mb-4 pl-4">✅ “A gestão democrática exige participação de todos, valorizando a opinião da comunidade escolar.”</p>
+
+            <h5 class="text-lg font-semibold text-gray-700 mb-2">1.2.5.1.3 Progressão temática</h5>
+            <p class="mb-2 text-lg text-justify text-indent">As ideias devem evoluir de forma gradual, sem “dar voltas” desnecessárias.</p>
+            <p class="italic pl-4">❌ Começa falando de tecnologia, depois muda para alimentação escolar, e volta para tecnologia.</p>
+            <p class="italic mb-4 pl-4">✅ Inicia sobre tecnologia, aprofunda, apresenta exemplos e conclui.</p>
+
+            <h5 class="text-lg font-semibold text-gray-700 mb-2">1.2.5.1.4 Consistência lógica</h5>
+            <p class="mb-2 text-lg text-justify text-indent">Os argumentos devem ter relação de causa e consequência coerentes.</p>
+            <p class="italic pl-4">❌ “A evasão escolar aumentou, logo os professores foram premiados.”</p>
+            <p class="italic mb-4 pl-4">✅ “A evasão escolar aumentou, logo a secretaria adotou medidas de permanência.”</p>
+
+            <h5 class="text-lg font-semibold text-gray-700 mb-2">1.2.5.1.5 Apoio no conhecimento de mundo</h5>
+            <p class="mb-2 text-lg text-justify text-indent">O texto deve considerar o que é razoável e aceito socialmente.</p>
+            <p class="italic pl-4">❌ “É possível acabar com o analfabetismo em um mês.”</p>
+            <p class="italic mb-4 pl-4">✅ “Reduzir o analfabetismo exige políticas de médio e longo prazo.”</p>
+
+            <h4 class="text-xl font-bold text-gray-800 mb-4">1.2.5.2 Tipos de coerência</h4>
+            <div class="mb-8 overflow-x-auto pl-4">
+                <table class="resumo-tabela min-w-full">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Explicação</th>
+                            <th>Exemplo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Coerência global</td>
+                            <td>O sentido geral do texto como um todo</td>
+                            <td>Tema “educação inclusiva” → todas as partes falam de inclusão</td>
+                        </tr>
+                        <tr>
+                            <td>Coerência local</td>
+                            <td>Relação lógica entre frases e parágrafos próximos</td>
+                            <td>“Os alunos se esforçaram, por isso foram aprovados.”</td>
+                        </tr>
+                        <tr>
+                            <td>Coerência pragmática</td>
+                            <td>Compatibilidade com a realidade e o contexto social</td>
+                            <td>“O Brasil investe em educação, mas enfrenta desafios de acesso e qualidade.”</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h4 class="text-xl font-bold text-gray-800 mb-4">1.2.5.3 Por que a coerência é essencial em concursos da educação?</h4>
+            <ul class="list-disc list-inside mb-8 space-y-2 text-lg pl-4">
+                <li>É critério de correção obrigatório na maioria dos editais.</li>
+                <li>Um texto pode estar com ortografia perfeita e coesão impecável, mas se perder a coerência, a nota cai drasticamente.</li>
+                <li>Demonstra clareza de raciocínio e objetividade, qualidades esperadas de um profissional da educação.</li>
+            </ul>
+
+            <h4 class="text-xl font-bold text-gray-800 mb-4">1.2.5.4 Erros comuns que prejudicam a coerência</h4>
+            <div class="mb-8 overflow-x-auto pl-4">
+                <table class="resumo-tabela min-w-full">
+                    <thead>
+                        <tr>
+                            <th>Erro</th>
+                            <th>Exemplo</th>
+                            <th>Correção</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Contradição</td>
+                            <td>“A BNCC garante autonomia docente, por isso todos devem seguir o mesmo material obrigatório.”</td>
+                            <td>Ajustar para que as ideias sejam compatíveis</td>
+                        </tr>
+                        <tr>
+                            <td>Falta de foco</td>
+                            <td>Começa sobre educação infantil e termina falando de esportes profissionais</td>
+                            <td>Manter todas as ideias ligadas ao tema</td>
+                        </tr>
+                        <tr>
+                            <td>Argumentos ilógicos</td>
+                            <td>“Quanto mais aulas, menos aprendizado.”</td>
+                            <td>Apresentar relação lógica ou dados que sustentem</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Seção sobre Conectivos -->
+            <h4 class="text-xl font-bold text-gray-800 mb-4">1.2.6 A Importância dos Conectivos para a Coesão e a Coerência Textual</h4>
+            <p class="mb-4 text-lg text-justify text-indent">Os conectivos, também chamados de elementos coesivos ou palavras de ligação, desempenham um papel fundamental na construção de textos claros, bem estruturados e consistentes. Eles funcionam como pontes que unem palavras, orações e parágrafos, permitindo que as ideias sejam apresentadas de forma fluida e lógica.</p>
+            <p class="mb-4 text-lg text-justify text-indent">Na coesão, os conectivos garantem que as partes do texto estejam ligadas de maneira gramatical e semântica, evitando que as frases fiquem soltas ou desconexas. Já na coerência, eles contribuem para que as ideias mantenham um sentido global e respeitem uma sequência lógica de raciocínio, orientando o leitor pela linha de pensamento do autor.</p>
+            <p class="mb-4 text-lg text-justify text-indent">O uso adequado dos conectivos também:</p>
+            <ul class="list-disc list-inside mb-4 space-y-2 text-lg pl-8">
+                <li>Organiza as informações, definindo relações de tempo, causa, consequência, contraste, etc.</li>
+                <li>Facilita a compreensão, evitando ambiguidades e interpretações equivocadas.</li>
+                <li>Enriquece o estilo do texto, tornando-o mais agradável e preciso.</li>
+                <li>Demonstra domínio linguístico, algo valorizado em provas, concursos e redações acadêmicas.</li>
+            </ul>
+            <p class="mb-8 text-lg text-justify text-indent">Por isso, conhecer e saber empregar corretamente diferentes tipos de conectivos é essencial para qualquer pessoa que queira escrever bem, especialmente em contextos formais e avaliativos.</p>
+            
+            <h4 class="text-xl font-bold text-gray-800 mb-4">1.2.6.1 Tabela de Conectivos e Funções no Texto</h4>
+            <div class="mb-8 overflow-x-auto pl-4">
+                <table class="resumo-tabela min-w-full">
+                    <thead>
+                        <tr>
+                            <th class="bg-yellow-200">Função no Texto</th>
+                            <th>Conectivos/Expressões</th>
+                            <th>Exemplo de Uso</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Adição</td>
+                            <td><span class="font-bold">e, além disso, bem como, ainda, não só… mas também, assim como</span></td>
+                            <td>O professor deve planejar as aulas e avaliar o progresso dos alunos.</td>
+                        </tr>
+                        <tr>
+                            <td>Oposição / Contraste</td>
+                            <td><span class="font-bold">mas, porém, contudo, todavia, entretanto, no entanto, embora, mesmo que</span></td>
+                            <td>O projeto era promissor, porém não foi executado corretamente.</td>
+                        </tr>
+                        <tr>
+                            <td>Conclusão</td>
+                            <td><span class="font-bold">portanto, logo, assim, por isso, enfim, então, dessa forma, em suma</span></td>
+                            <td>O ensino deve ser inclusivo, portanto é necessário investir em formação docente.</td>
+                        </tr>
+                        <tr>
+                            <td>Causa / Justificativa</td>
+                            <td><span class="font-bold">porque, pois, já que, visto que, como (no início da frase), porquanto</span></td>
+                            <td>O evento foi cancelado porque não havia recursos suficientes.</td>
+                        </tr>
+                        <tr>
+                            <td>Condição</td>
+                            <td><span class="font-bold">se, caso, contanto que, desde que, salvo se, a menos que</span></td>
+                            <td>O aluno será aprovado se alcançar a média exigida.</td>
+                        </tr>
+                        <tr>
+                            <td>Finalidade</td>
+                            <td><span class="font-bold">para que, a fim de que, com o intuito de, com o objetivo de</span></td>
+                            <td>Promoveu reuniões a fim de que todos compreendessem as mudanças.</td>
+                        </tr>
+                        <tr>
+                            <td>Conformidade</td>
+                            <td><span class="font-bold">conforme, segundo, de acordo com, como</span></td>
+                            <td>O projeto foi elaborado de acordo com as diretrizes da LDB.</td>
+                        </tr>
+                        <tr>
+                            <td>Comparação</td>
+                            <td><span class="font-bold">como, assim como, tal qual, do mesmo modo, tanto quanto, mais… que, menos… que</span></td>
+                            <td>A gestão escolar deve ser participativa, assim como prevê a legislação.</td>
+                        </tr>
+                        <tr>
+                            <td>Tempo</td>
+                            <td><span class="font-bold">quando, enquanto, assim que, antes que, depois que, desde que, até que, logo que</span></td>
+                            <td>A reunião começará assim que o diretor chegar.</td>
+                        </tr>
+                        <tr>
+                            <td>Explicação</td>
+                            <td><span class="font-bold">porque, pois (antes do verbo), que, porquanto</span></td>
+                            <td>Não foi à escola porque estava doente.</td>
+                        </tr>
+                        <tr>
+                            <td>Exemplificação</td>
+                            <td><span class="font-bold">por exemplo, como, tal como, isto é, ou seja</span></td>
+                            <td>Existem diversas práticas inclusivas, por exemplo, o uso de recursos de acessibilidade.</td>
+                        </tr>
+                        <tr>
+                            <td>Ênfase</td>
+                            <td><span class="font-bold">sobretudo, especialmente, acima de tudo, principalmente</span></td>
+                            <td>A gestão deve prezar sobretudo pelo respeito à diversidade.</td>
+                        </tr>
+                        <tr>
+                            <td>Proporção</td>
+                            <td><span class="font-bold">à medida que, quanto mais… mais, quanto menos… menos</span></td>
+                            <td>A aprendizagem melhora à medida que o professor adota metodologias ativas.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Seção de Jogo dos Conectivos -->
+            <div class="connective-game-section bg-yellow-50 p-6 rounded-lg shadow-sm border border-yellow-200">
+                <h4 class="text-2xl font-bold text-gray-800 mb-4">1.2.6.2 Conectando Ideias: Jogo dos Conectivos ✨</h4>
+                <p class="text-lg text-gray-700 mb-4">Escolha a palavra que melhor preenche a lacuna na frase abaixo.</p>
+                
+                <div id="connective-question-container" class="bg-white p-6 rounded-lg border mb-4 shadow-sm">
+                    <p id="connective-question-text" class="text-xl font-semibold text-gray-800 text-center"></p>
+                </div>
+                
+                <div id="connective-options-container" class="flex flex-wrap justify-center gap-4 mb-4">
+                    <!-- Opções de botões serão renderizadas aqui -->
+                </div>
+                
+                <div id="connective-feedback" class="text-center text-lg font-bold"></div>
+                
+                <button id="connective-next-button" class="mt-4 w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow hover:bg-blue-700 transition-colors hidden">
+                    Próxima Pergunta
+                </button>
+            </div>
+
+            <!-- Seção sobre Norma Culta -->
+            <h4 class="text-2xl font-bold text-gray-800 mt-8 mb-4">1.2.7 O que é a Norma Culta?</h4>
+            <p class="mb-4 text-lg text-justify text-indent">A Norma Culta é o conjunto de regras e convenções da língua portuguesa usadas em contextos formais, como documentos oficiais, redações de concursos, trabalhos acadêmicos e discursos públicos. Ela se baseia no uso mais consolidado e prestigiado entre pessoas escolarizadas e é registrada em gramáticas, dicionários e manuais de estilo.</p>
+            <p class="mb-8 text-lg text-justify text-indent">Em termos práticos, a norma culta é o padrão linguístico que demonstra conhecimento da gramática tradicional e adequação ao contexto formal, sendo exigida em situações que pedem clareza, objetividade e correção.</p>
+
+            <h5 class="text-xl font-bold text-gray-800 mb-4">1.2.7.1 Importância da Norma Culta</h5>
+            <ul class="list-disc list-inside mb-8 space-y-2 text-lg pl-4">
+                <li>Credibilidade: aumenta a confiança do leitor ou avaliador em relação ao texto.</li>
+                <li>Compreensão: garante que a mensagem seja clara e sem ambiguidades.</li>
+                <li>Aprovação em concursos: nas provas discursivas e redações, erros gramaticais comprometem a nota.</li>
+                <li>Formalidade: necessária em situações profissionais, jurídicas, administrativas e acadêmicas.</li>
+            </ul>
+
+            <h5 class="text-xl font-bold text-gray-800 mb-4">1.2.7.2 Principais Aspectos da Norma Culta</h5>
+            <ul class="list-disc list-inside mb-4 space-y-2 text-lg pl-4">
+                <li><span class="font-bold">Ortografia Correta:</span> Seguir as regras vigentes do Acordo Ortográfico da Língua Portuguesa.<br>Ex.: ideia (não “idéia”), heróico → heroico.</li>
+                <li><span class="font-bold">Concordância Verbal e Nominal:</span> Verbo e sujeito devem concordar em número e pessoa.<br>Ex.: Os alunos estudaram muito (correto) / Os alunos estudou muito (incorreto).</li>
+                <li><span class="font-bold">Regência Verbal e Nominal:</span> Uso adequado das preposições exigidas por verbos e nomes.<br>Ex.: Assisti ao filme (verbo assistir no sentido de ver exige preposição "a").</li>
+                <li><span class="font-bold">Colocação Pronominal:</span> Emprego correto de próclise, mesóclise e ênclise, principalmente em contextos formais.<br>Ex.: Dar-me-ão explicações (mesóclise, futuro do presente).</li>
+                <li><span class="font-bold">Uso Correto de Conectivos:</span> Respeitar a relação lógica entre ideias.<br>Ex.: Estudou bastante, portanto foi aprovado.</li>
+                <li><span class="font-bold">Adequação Vocabular:</span> Escolher palavras adequadas ao nível de formalidade exigido.<br>Evitar gírias, regionalismos e expressões coloquiais.</li>
+                <li><span class="font-bold">Pontuação Correta:</span> Uso adequado de vírgulas, ponto e vírgula, dois-pontos, travessões, etc., respeitando a sintaxe.<br>Ex.: O professor, muito experiente, explicou tudo com clareza.</li>
+            </ul>
+
+            <h5 class="text-xl font-bold text-gray-800 mb-4">1.2.7.3 Norma Culta x Linguagem Coloquial</h5>
+            <div class="mb-8 overflow-x-auto pl-4">
+                <table class="resumo-tabela min-w-full">
+                    <thead>
+                        <tr>
+                            <th>Aspecto</th>
+                            <th>Norma Culta (Formal)</th>
+                            <th>Linguagem Coloquial (Informal)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Uso do verbo</td>
+                            <td>Nós vamos ao cinema.</td>
+                            <td>A gente vai no cinema.</td>
+                        </tr>
+                        <tr>
+                            <td>Vocabulário</td>
+                            <td>Solicito a gentileza...</td>
+                            <td>Quero pedir...</td>
+                        </tr>
+                        <tr>
+                            <td>Pontuação</td>
+                            <td>Correta e seguindo a norma</td>
+                            <td>Muitas vezes despadronizada</td>
+                        </tr>
+                        <tr>
+                            <td>Pronomes</td>
+                            <td>Dar-me-ão resposta amanhã.</td>
+                            <td>Eles vão me responder amanhã.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="bg-blue-50 p-4 rounded-lg mb-8">
+                <h5 class="text-lg font-bold">1.2.7.4 Dica para Concursos</h5>
+                <p class="mt-2 text-lg text-justify text-indent">Em concursos públicos da educação, especialmente nas provas discursivas, o uso consistente da norma culta é critério de avaliação. Pequenos erros de concordância, regência ou ortografia podem reduzir a pontuação mesmo que o conteúdo esteja bom. Por isso, a prática constante da escrita formal é indispensável.</p>
+            </div>
+
+            <!-- Seção de Jogo da Norma Culta -->
+            <div id="norma-culta-quiz-section" class="norma-culta-quiz-section bg-green-50 p-6 rounded-lg shadow-sm border border-green-200 mt-8">
+                <h4 class="text-2xl font-bold text-gray-800 mb-4">1.2.8 Jogo da Norma Culta ⚖️</h4>
+                <p class="text-lg text-gray-700 mb-4">Teste seus conhecimentos sobre as regras da norma culta com o quiz abaixo.</p>
+                
+                <div id="norma-culta-question-container" class="bg-white p-6 rounded-lg border mb-4 shadow-sm">
+                    <p id="norma-culta-question-text" class="text-xl font-semibold text-gray-800 text-center"></p>
+                </div>
+                
+                <div id="norma-culta-options-container" class="flex flex-wrap justify-center gap-4 mb-4">
+                    <!-- Opções de botões serão renderizadas aqui -->
+                </div>
+                
+                <div id="norma-culta-feedback" class="text-center text-lg font-bold"></div>
+                
+                <button id="norma-culta-next-button" class="mt-4 w-full bg-blue-600 text-white font-bold py-3 px-6 rounded-lg shadow hover:bg-blue-700 transition-colors hidden">
+                    Próxima Pergunta
+                </button>
+            </div>
+
+
+            <!-- Seção 1.3 -->
+            <h3 class="text-2xl font-bold text-gray-800 mt-8 mb-4">1.3 Etapas da Produção Textual no concurso</h3>
+            <ul class="list-disc list-inside mb-8 space-y-2 text-lg pl-4">
+                <li>Leitura atenta do tema e comando da prova</li>
+                <li>Planejamento de argumentos (3 principais)</li>
+                <li>Escrita do rascunho sem preocupação total com erros</li>
+                <li>Revisão gramatical e de coerência</li>
+                <li>Passagem para a folha oficial com letra legível e margens corretas</li>
+            </ul>
+        </div>
+        
+        <!-- Seção da Sidebar -->
+        <div class="sidebar-section">
+            
+            <!-- Botões de ação para grifo e comentário -->
+            <div id="action-buttons" class="action-buttons flex">
+                <button id="highlight-button">Grifar</button>
+                <button id="comment-button">Comentar</button>
+            </div>
+
+            <!-- Modal para adicionar comentário -->
+            <div id="comment-modal" class="modal">
+                <div class="modal-content">
+                    <h3 class="text-xl font-bold mb-4">Adicionar Comentário</h3>
+                    <textarea id="comment-textarea" class="w-full h-32 p-3 border rounded-lg" placeholder="Digite seu comentário..."></textarea>
+                    <div class="flex justify-end mt-4">
+                        <button id="cancel-comment-button" class="bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg mr-2">Cancelar</button>
+                        <button id="save-comment-button" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-lg">Salvar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção de Comentários e Anotações -->
+            <div class="comments-section mb-8">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4">💬 Comentários e Anotações</h2>
+                <div id="comments-list" class="space-y-4">
+                    <p class="text-gray-500 text-center">Nenhum comentário ou grifo adicionado.</p>
+                </div>
+            </div>
+
+            <!-- Nova Seção com Gemini API -->
+            <div class="gemini-section bg-green-50 p-6 rounded-lg shadow-sm border border-green-200">
+                <h2 class="text-2xl font-bold text-gray-800 mb-4 flex items-center">
+                    Gerador de Rascunho ✨
+                </h2>
+                <p class="text-sm text-gray-600 mb-4 text-justify">Escolha um tema ou digite o seu para gerar um parágrafo introdutório para uma redação de concurso.</p>
+                
+                <div class="mb-4">
+                    <label for="gemini-part-select" class="block text-sm font-medium text-gray-700">Selecione a parte da redação:</label>
+                    <select id="gemini-part-select" class="mt-1 w-full p-2 border rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-400">
+                        <option value="introducao">Introdução</option>
+                        <option value="desenvolvimento">Desenvolvimento</option>
+                        <option value="conclusao">Conclusão</option>
+                    </select>
+                </div>
+
+                <select id="gemini-topic-select" class="w-full p-2 border rounded-lg mb-4 text-gray-700">
+                    <option value="">Selecione um tema...</option>
+                    <option value="O papel da gestão democrática na escola pública">O papel da gestão democrática na escola pública</option>
+                    <option value="A importância da educação inclusiva no século XXI">A importância da educação inclusiva no século XXI</option>
+                    <option value="Tecnologia como ferramenta pedagógica">Tecnologia como ferramenta pedagógica</option>
+                    <option value="O papel do Atendimento Educacional Especializado (AEE) na inclusão escolar">O papel do Atendimento Educacional Especializado (AEE) na inclusão escolar</option>
+                </select>
+                <textarea id="gemini-custom-topic" class="w-full h-16 p-2 border rounded-lg text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-400 resize-none" placeholder="Ou digite seu próprio tema aqui..."></textarea>
+                
+                <button id="generate-draft-button" class="mt-4 w-full bg-green-600 text-white font-bold py-2 px-4 rounded-lg shadow hover:bg-green-700 transition-colors">
+                    Gerar Rascunho ✨
+                </button>
+                
+                <div id="gemini-output" class="mt-4 p-4 bg-white rounded-lg border hidden">
+                    <p class="text-sm italic text-gray-500 mb-2" id="gemini-output-title"></p>
+                    <div id="gemini-output-text" class="text-gray-800"></div>
+                    <div id="loading-spinner" class="hidden text-center text-gray-500 mt-2">
+                        <svg class="animate-spin h-5 w-5 text-green-500 inline-block mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Gerando...
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="bg-blue-900 text-white text-center p-6 mt-8 rounded-t-xl">
+        <p>© 2025 Cursinho Preparatório. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // --- Variáveis Globais e Configuração Inicial para Anotações ---
+        let selectedText = null;
+        let selectionRange = null;
+        let actionButtons = null; // Inicializar depois que o DOM estiver carregado
+        const contentSection = document.getElementById('content-section');
+        const localStorageKey = 'producaoTextualComments';
+        let commentsData = JSON.parse(localStorage.getItem(localStorageKey)) || [];
+        let lastHighlightId = commentsData.length > 0 ? Math.max(...commentsData.map(c => c.id)) : 0;
+
+
+        // --- Dados para o Jogo dos Conectivos ---
+        const connectiveQuizData = [
+            {
+                question: "O professor explicou a matéria, ... os alunos entenderam o conteúdo. (relação de causa e consequência)",
+                correctAnswer: "portanto",
+                options: ["entretanto", "porque", "portanto", "embora"]
+            },
+            {
+                question: "A escola promoveu um evento cultural, ... reuniu alunos, professores e pais. (relação de adição)",
+                correctAnswer: "além disso",
+                options: ["contudo", "além disso", "visto que", "porém"]
+            },
+            {
+                question: "A gestão democrática é fundamental, ... muitos desafios ainda persistem. (relação de oposição)",
+                correctAnswer: "mas",
+                options: ["então", "assim", "mas", "para"]
+            },
+            {
+                question: "As crianças se sentem mais seguras ... a família participa da vida escolar. (relação de causa)",
+                correctAnswer: "porque",
+                options: ["contudo", "ainda que", "portanto", "porque"]
+            },
+            {
+                question: "A tecnologia pode ser uma ferramenta pedagógica, ... seu uso deve ser planejado. (relação de oposição)",
+                correctAnswer: "porém",
+                options: ["e", "ou", "porém", "logo"]
+            },
+            {
+                question: "Aprender a coesão textual é crucial ... a redação se torne mais fluida e compreensível. (relação de finalidade)",
+                correctAnswer: "para que",
+                options: ["mas", "para que", "visto que", "embora"]
+            },
+            {
+                question: "O novo Plano de Carreira valoriza o profissional, ... há insatisfação com a remuneração. (relação de oposição)",
+                correctAnswer: "entretanto",
+                options: ["entretanto", "assim", "portanto", "e"]
+            }
+        ];
+
+        let currentConnectiveQuestionIndex = 0;
+
+        // --- Funções para o Jogo dos Conectivos ---
+        const renderConnectiveQuiz = () => {
+            const container = document.getElementById('connective-question-container');
+            const optionsContainer = document.getElementById('connective-options-container');
+            const feedbackDiv = document.getElementById('connective-feedback');
+            const nextButton = document.getElementById('connective-next-button');
+
+            if (!container) return; // Guard clause
+
+            if (currentConnectiveQuestionIndex >= connectiveQuizData.length) {
+                container.innerHTML = '<p class="text-xl font-bold text-green-700">Parabéns! Você completou o jogo.</p>';
+                optionsContainer.innerHTML = '';
+                nextButton.textContent = "Reiniciar Jogo";
+                nextButton.classList.remove('hidden');
+                nextButton.removeEventListener('click', handleNextConnectiveQuestion);
+                nextButton.addEventListener('click', () => {
+                    currentConnectiveQuestionIndex = 0;
+                    renderConnectiveQuiz();
+                });
+                return;
+            }
+
+            const currentQuestion = connectiveQuizData[currentConnectiveQuestionIndex];
+            document.getElementById('connective-question-text').textContent = currentQuestion.question;
+            
+            optionsContainer.innerHTML = '';
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.className = 'bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-300 transition-colors';
+                button.addEventListener('click', () => handleConnectiveAnswer(option));
+                optionsContainer.appendChild(button);
+            });
+
+            feedbackDiv.textContent = '';
+            nextButton.classList.add('hidden');
+        };
+
+        const handleConnectiveAnswer = (selectedOption) => {
+            const currentQuestion = connectiveQuizData[currentConnectiveQuestionIndex];
+            const feedbackDiv = document.getElementById('connective-feedback');
+            const optionsContainer = document.getElementById('connective-options-container');
+            const nextButton = document.getElementById('connective-next-button');
+
+            if (selectedOption === currentQuestion.correctAnswer) {
+                feedbackDiv.textContent = 'Correto! 🎉';
+                feedbackDiv.className = 'text-center text-lg font-bold text-green-600';
+            } else {
+                feedbackDiv.textContent = `Incorreto. A resposta certa era "${currentQuestion.correctAnswer}".`;
+                feedbackDiv.className = 'text-center text-lg font-bold text-red-600';
+            }
+
+            // Desabilita os botões e mostra o botão de próxima pergunta
+            Array.from(optionsContainer.children).forEach(button => {
+                button.disabled = true;
+                if (button.textContent === currentQuestion.correctAnswer) {
+                    button.classList.remove('bg-gray-200', 'hover:bg-gray-300');
+                    button.classList.add('bg-green-200', 'text-green-800');
+                } else if (button.textContent === selectedOption) {
+                    button.classList.remove('bg-gray-200', 'hover:bg-gray-300');
+                    button.classList.add('bg-red-200', 'text-red-800');
+                }
+            });
+            nextButton.classList.remove('hidden');
+            nextButton.removeEventListener('click', handleNextConnectiveQuestion);
+            nextButton.addEventListener('click', handleNextConnectiveQuestion);
+        };
+
+        const handleNextConnectiveQuestion = () => {
+            currentConnectiveQuestionIndex++;
+            renderConnectiveQuiz();
+        };
+
+        // --- Dados para o Jogo da Norma Culta ---
+        const normaCultQuizData = [
+            {
+                question: "Assinale a alternativa que apresenta a concordância verbal correta.",
+                correctAnswer: "Os professores e os alunos participaram da reunião.",
+                options: [
+                    "Os professores e os alunos participou da reunião.",
+                    "Os professores e os alunos participaram da reunião.",
+                    "O professor e o aluno participaram da reunião."
+                ]
+            },
+            {
+                question: "Complete a frase de acordo com a regência verbal correta: 'Ele assistiu ... filme.'",
+                correctAnswer: "ao",
+                options: [
+                    "o",
+                    "no",
+                    "ao"
+                ]
+            },
+            {
+                question: "Qual a colocação pronominal mais adequada para um contexto formal?",
+                correctAnswer: "Disseram-me que o evento foi cancelado.",
+                options: [
+                    "Me disseram que o evento foi cancelado.",
+                    "Disseram-me que o evento foi cancelado.",
+                    "Me falaram que o evento foi cancelado."
+                ]
+            },
+            {
+                question: "Em qual das frases o uso da vírgula está correto?",
+                correctAnswer: "Ele, um grande gestor, resolveu a situação rapidamente.",
+                options: [
+                    "Ele, um grande gestor resolveu a situação rapidamente.",
+                    "Ele um grande gestor, resolveu a situação rapidamente.",
+                    "Ele, um grande gestor, resolveu a situação rapidamente."
+                ]
+            },
+            {
+                question: "A frase 'Houveram muitos desafios.' está correta?",
+                correctAnswer: "Não. O correto é 'Houve muitos desafios.'",
+                options: [
+                    "Sim, está correta.",
+                    "Não. O correto é 'Houveram desafios muitos.'",
+                    "Não. O correto é 'Houve muitos desafios.'",
+                ]
+            },
+            {
+                question: "Assinale a opção com o uso correto do verbo 'ir' e preposição.",
+                correctAnswer: "Os professores foram à escola para a reunião.",
+                options: [
+                    "Os professores foram na escola para a reunião.",
+                    "Os professores foram à escola para a reunião.",
+                    "Os professores foram a escola para a reunião."
+                ]
+            },
+        ];
+
+        let currentNormaCultQuestionIndex = 0;
+
+        // --- Funções para o Jogo da Norma Culta ---
+        const renderNormaCultQuiz = () => {
+            const container = document.getElementById('norma-culta-question-container');
+            const optionsContainer = document.getElementById('norma-culta-options-container');
+            const feedbackDiv = document.getElementById('norma-culta-feedback');
+            const nextButton = document.getElementById('norma-culta-next-button');
+
+            if (!container) return; // Guard clause
+
+            if (currentNormaCultQuestionIndex >= normaCultQuizData.length) {
+                container.innerHTML = '<p class="text-xl font-bold text-green-700">Parabéns! Você completou o Jogo da Norma Culta.</p>';
+                optionsContainer.innerHTML = '';
+                nextButton.textContent = "Reiniciar Jogo";
+                nextButton.classList.remove('hidden');
+                nextButton.removeEventListener('click', handleNextNormaCultQuestion);
+                nextButton.addEventListener('click', () => {
+                    currentNormaCultQuestionIndex = 0;
+                    renderNormaCultQuiz();
+                });
+                return;
+            }
+
+            const currentQuestion = normaCultQuizData[currentNormaCultQuestionIndex];
+            document.getElementById('norma-culta-question-text').textContent = currentQuestion.question;
+            
+            optionsContainer.innerHTML = '';
+            currentQuestion.options.forEach(option => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.className = 'bg-gray-200 text-gray-800 font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-gray-300 transition-colors text-sm text-left';
+                button.addEventListener('click', () => handleNormaCultAnswer(option));
+                optionsContainer.appendChild(button);
+            });
+
+            feedbackDiv.textContent = '';
+            nextButton.classList.add('hidden');
+        };
+
+        const handleNormaCultAnswer = (selectedOption) => {
+            const currentQuestion = normaCultQuizData[currentNormaCultQuestionIndex];
+            const feedbackDiv = document.getElementById('norma-culta-feedback');
+            const optionsContainer = document.getElementById('norma-culta-options-container');
+            const nextButton = document.getElementById('norma-culta-next-button');
+
+            if (selectedOption === currentQuestion.correctAnswer) {
+                feedbackDiv.textContent = 'Correto! 🎉';
+                feedbackDiv.className = 'text-center text-lg font-bold text-green-600';
+            } else {
+                feedbackDiv.textContent = `Incorreto. A resposta certa era "${currentQuestion.correctAnswer}".`;
+                feedbackDiv.className = 'text-center text-lg font-bold text-red-600';
+            }
+
+            Array.from(optionsContainer.children).forEach(button => {
+                button.disabled = true;
+                if (button.textContent === currentQuestion.correctAnswer) {
+                    button.classList.remove('bg-gray-200', 'hover:bg-gray-300');
+                    button.classList.add('bg-green-200', 'text-green-800');
+                } else if (button.textContent === selectedOption) {
+                    button.classList.remove('bg-gray-200', 'hover:bg-gray-300');
+                    button.classList.add('bg-red-200', 'text-red-800');
+                }
+            });
+            nextButton.classList.remove('hidden');
+            nextButton.removeEventListener('click', handleNextNormaCultQuestion);
+            nextButton.addEventListener('click', handleNextNormaCultQuestion);
+        };
+
+        const handleNextNormaCultQuestion = () => {
+            currentNormaCultQuestionIndex++;
+            renderNormaCultQuiz();
+        };
+        
+        // --- Funções de Anotação (Grifo e Comentário) ---
+        function saveData() {
+            localStorage.setItem(localStorageKey, JSON.stringify(commentsData));
+        }
+
+        function renderComments() {
+            const commentsList = document.getElementById('comments-list');
+            if (!commentsList) return;
+            commentsList.innerHTML = '';
+            if (commentsData.length === 0) {
+                commentsList.innerHTML = '<p class="text-gray-500 text-center">Nenhum comentário ou grifo adicionado.</p>';
+                return;
+            }
+            const sortedComments = [...commentsData].sort((a, b) => b.id - a.id);
+            sortedComments.forEach(comment => {
+                const commentDiv = document.createElement('div');
+                commentDiv.className = 'p-4 rounded-lg bg-white border border-gray-200 shadow-sm';
+                commentDiv.innerHTML = `
+                    <p class="font-bold text-sm text-gray-700 mb-1">${comment.type === 'highlight' ? 'Grifo' : 'Comentário'}:</p>
+                    <blockquote class="text-sm italic text-gray-600 mb-2 border-l-4 border-gray-300 pl-3">"${comment.text}"</blockquote>
+                    ${comment.comment ? `<p class="text-sm text-gray-800 bg-gray-50 p-2 rounded">${comment.comment}</p>` : ''}
+                    <div class="text-right mt-2">
+                        <button class="delete-comment-button text-red-500 hover:text-red-700 font-semibold text-xs py-1 px-2 rounded hover:bg-red-50" data-id="${comment.id}">Deletar</button>
+                    </div>
+                `;
+                commentsList.appendChild(commentDiv);
+            });
+            addDeleteEventListeners();
+        }
+
+        function addDeleteEventListeners() {
+            document.querySelectorAll('.delete-comment-button').forEach(button => {
+                button.addEventListener('click', (event) => {
+                    const commentIdToDelete = event.target.dataset.id;
+                    commentsData = commentsData.filter(c => c.id != commentIdToDelete);
+                    saveData();
+                    const spanToRemove = document.querySelector(`.highlighted[data-highlight-id='${commentIdToDelete}']`);
+                    if (spanToRemove) {
+                        spanToRemove.outerHTML = spanToRemove.innerHTML;
+                        contentSection.normalize();
+                    }
+                    renderComments();
+                });
+            });
+        }
+
+        function showActionButtons(event) {
+            const selection = window.getSelection();
+            if (!selection.rangeCount) return;
+            const range = selection.getRangeAt(0);
+            if (!contentSection.contains(range.commonAncestorContainer)) return;
+
+            const rect = range.getBoundingClientRect();
+            actionButtons.style.display = 'flex';
+            actionButtons.style.left = `${rect.left + window.scrollX + (rect.width / 2) - (actionButtons.offsetWidth / 2)}px`;
+            actionButtons.style.top = `${rect.top + window.scrollY - actionButtons.offsetHeight - 5}px`;
+        }
+
+        function hideActionButtons() {
+            if (actionButtons) {
+                actionButtons.style.display = 'none';
+            }
+        }
+
+        function handleHighlight() {
+            if (selectionRange) {
+                commentsData.push({
+                    id: ++lastHighlightId,
+                    type: 'highlight',
+                    text: selectedText,
+                    comment: null
+                });
+                saveData();
+                const span = document.createElement('span');
+                span.className = 'highlighted';
+                span.dataset.highlightId = lastHighlightId;
+                span.textContent = selectedText;
+                selectionRange.deleteContents();
+                selectionRange.insertNode(span);
+                renderComments();
+                hideActionButtons();
+                setupCommentTooltips();
+            }
+        }
+
+        function openCommentModal() {
+            const modal = document.getElementById('comment-modal');
+            const textarea = document.getElementById('comment-textarea');
+            modal.style.display = 'flex';
+            textarea.value = '';
+            textarea.focus();
+            hideActionButtons();
+        }
+
+        function handleSaveComment() {
+            const commentText = document.getElementById('comment-textarea').value;
+            const modal = document.getElementById('comment-modal');
+            modal.style.display = 'none';
+            if (selectionRange && commentText.trim() !== '') {
+                commentsData.push({
+                    id: ++lastHighlightId,
+                    type: 'comment',
+                    text: selectedText,
+                    comment: commentText.trim()
+                });
+                saveData();
+                const span = document.createElement('span');
+                span.className = 'highlighted';
+                span.dataset.highlightId = lastHighlightId;
+                span.dataset.comment = commentText.trim();
+                span.textContent = selectedText;
+                selectionRange.deleteContents();
+                selectionRange.insertNode(span);
+                renderComments();
+                setupCommentTooltips();
+            }
+        }
+        
+        function setupCommentTooltips() {
+            document.querySelectorAll('.highlighted[data-comment]').forEach(span => {
+                span.removeEventListener('mouseenter', showCommentTooltip);
+                span.removeEventListener('mouseleave', hideCommentTooltip);
+                if (!span.querySelector('.comment-box')) {
+                    const commentBox = document.createElement('div');
+                    commentBox.className = 'comment-box';
+                    commentBox.textContent = span.dataset.comment;
+                    span.appendChild(commentBox);
+                }
+                span.addEventListener('mouseenter', showCommentTooltip);
+                span.addEventListener('mouseleave', hideCommentTooltip);
+            });
+        }
+        
+        function showCommentTooltip(event) {
+            const commentBox = event.currentTarget.querySelector('.comment-box');
+            if (commentBox) commentBox.style.display = 'block';
+        }
+        
+        function hideCommentTooltip(event) {
+            const commentBox = event.currentTarget.querySelector('.comment-box');
+            if (commentBox) commentBox.style.display = 'none';
+        }
+
+        function applyAllHighlightsOnLoad() {
+             if (commentsData.length === 0) return;
+            commentsData.forEach(comment => {
+                const walker = document.createTreeWalker(contentSection, NodeFilter.SHOW_TEXT, null, false);
+                let node;
+                while(node = walker.nextNode()) {
+                    const index = node.nodeValue.indexOf(comment.text);
+                    if (index !== -1 && (!node.parentElement || !node.parentElement.classList.contains('highlighted'))) {
+                        try {
+                            const range = document.createRange();
+                            range.setStart(node, index);
+                            range.setEnd(node, index + comment.text.length);
+                            const span = document.createElement('span');
+                            span.className = 'highlighted';
+                            span.dataset.highlightId = comment.id;
+                            if (comment.comment) {
+                                span.dataset.comment = comment.comment;
+                            }
+                            range.surroundContents(span);
+                            // Sair do loop para não grifar a mesma frase múltiplas vezes se ela aparecer de novo
+                            break; 
+                        } catch(e) {
+                            console.error("Failed to apply highlight:", e);
+                        }
+                    }
+                }
+            });
+            setupCommentTooltips();
+        }
+
+        // --- Funções de Dados e Renderização originais ---
+        
+        // Define as constantes para os elementos da interface do Gemini
+        const generateDraftButton = document.getElementById('generate-draft-button');
+        const topicSelect = document.getElementById('gemini-topic-select');
+        const customTopicTextarea = document.getElementById('gemini-custom-topic');
+        const geminiOutputDiv = document.getElementById('gemini-output');
+        const geminiOutputText = document.getElementById('gemini-output-text');
+        const loadingSpinner = document.getElementById('loading-spinner');
+        const geminiPartSelect = document.getElementById('gemini-part-select');
+        const geminiOutputTitle = document.getElementById('gemini-output-title');
+
+
+        // Adiciona o event listener para o botão de gerar rascunho
+        generateDraftButton.addEventListener('click', async () => {
+            let topic = topicSelect.value || customTopicTextarea.value.trim();
+            const part = geminiPartSelect.value;
+            let prompt = '';
+            let title = '';
+
+            if (!topic) {
+                alert('Por favor, selecione um tema ou digite o seu para continuar.');
+                return;
+            }
+
+            // Define o prompt e o título com base na parte da redação selecionada
+            if (part === 'introducao') {
+                title = 'Introdução gerada:';
+                prompt = `Você é um tutor especializado em preparação para concursos públicos da área de educação. Escreva um parágrafo de introdução para uma redação dissertativo-argumentativa sobre o tema: "${topic}". A introdução deve ser concisa, apresentar o tema, contextualizar a discussão e, de forma sutil, sugerir a linha de argumentação que será desenvolvida. O texto deve ter um tom formal e ser adequado para um exame de alto nível. Responda apenas com o parágrafo de introdução.`;
+            } else if (part === 'desenvolvimento') {
+                title = 'Parágrafo de desenvolvimento gerado:';
+                prompt = `Você é um tutor especializado em preparação para concursos públicos da área de educação. Escreva um parágrafo de desenvolvimento para uma redação dissertativo-argumentativa sobre o tema: "${topic}". O parágrafo deve apresentar um argumento claro, sustentado por um exemplo ou dado concreto. Mantenha um tom formal e linguagem adequada para um exame de alto nível. Responda apenas com o parágrafo de desenvolvimento.`;
+            } else if (part === 'conclusao') {
+                title = 'Conclusão gerada:';
+                prompt = `Você é um tutor especializado em preparação para concursos públicos da área de educação. Escreva um parágrafo de conclusão para uma redação dissertativo-argumentativa sobre o tema: "${topic}". A conclusão deve retomar a tese de forma concisa e apresentar uma proposta de intervenção social relevante e detalhada, sem introduzir novas informações. Mantenha um tom formal e linguagem adequada para um exame de alto nível. Responda apenas com o parágrafo de conclusão.`;
+            }
+            
+            // Desabilita o botão e mostra o spinner
+            generateDraftButton.disabled = true;
+            loadingSpinner.classList.remove('hidden');
+            geminiOutputDiv.classList.add('hidden');
+            geminiOutputTitle.textContent = title;
+
+            try {
+                // Configuração da chamada à API
+                const chatHistory = [];
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+                const payload = { contents: chatHistory };
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+                
+                // Realiza a chamada à API
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Erro na API: ${response.statusText}`);
+                }
+                
+                const result = await response.json();
+                
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    
+                    const generatedText = result.candidates[0].content.parts[0].text;
+                    
+                    // Exibe o texto gerado na interface
+                    geminiOutputText.textContent = generatedText;
+                    geminiOutputDiv.classList.remove('hidden');
+                    
+                } else {
+                    geminiOutputText.textContent = 'Não foi possível gerar um rascunho. Tente novamente.';
+                    geminiOutputDiv.classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error('Erro ao chamar a API do Gemini:', error);
+                geminiOutputText.textContent = 'Ocorreu um erro ao gerar o rascunho. Verifique sua conexão e tente novamente.';
+                geminiOutputDiv.classList.remove('hidden');
+            } finally {
+                // Restaura o estado do botão e esconde o spinner
+                generateDraftButton.disabled = false;
+                loadingSpinner.classList.add('hidden');
+            }
+        });
+        
+        // --- Event Listeners Principais ---
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            actionButtons = document.getElementById('action-buttons');
+            // Anotações
+            contentSection.addEventListener('mouseup', (event) => {
+                if (actionButtons.contains(event.target)) return;
+                const selection = window.getSelection();
+                const text = selection.toString().trim();
+                if (text.length > 0) {
+                    selectedText = text;
+                    selectionRange = selection.getRangeAt(0);
+                    showActionButtons(event);
+                } else {
+                    hideActionButtons();
+                }
+            });
+            document.addEventListener('mousedown', (event) => {
+                if (actionButtons && !contentSection.contains(event.target) && !actionButtons.contains(event.target) && (!document.getElementById('comment-modal') || !document.getElementById('comment-modal').contains(event.target))) {
+                    hideActionButtons();
+                }
+            });
+
+            if (document.getElementById('highlight-button')) document.getElementById('highlight-button').addEventListener('click', handleHighlight);
+            if (document.getElementById('comment-button')) document.getElementById('comment-button').addEventListener('click', openCommentModal);
+            if (document.getElementById('save-comment-button')) document.getElementById('save-comment-button').addEventListener('click', handleSaveComment);
+            if (document.getElementById('cancel-comment-button')) document.getElementById('cancel-comment-button').addEventListener('click', () => {
+                document.getElementById('comment-modal').style.display = 'none';
+            });
+            applyAllHighlightsOnLoad();
+            renderComments();
+
+            // Jogos
+            renderConnectiveQuiz();
+            renderNormaCultQuiz();
+        });
+    </script>
+</body>
+</html>
