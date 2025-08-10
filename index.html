@@ -1212,6 +1212,10 @@
         const geminiPartSelect = document.getElementById('gemini-part-select');
         const geminiOutputTitle = document.getElementById('gemini-output-title');
 
+        // --- INSTRUÇÕES IMPORTANTES ---
+        // 1. Obtenha sua chave de API do Google AI Studio: https://aistudio.google.com/
+        // 2. Cole sua chave de API na variável abaixo, substituindo "COLE_SUA_CHAVE_API_AQUI".
+        const GEMINI_API_KEY = "AIzaSyCZRDf8XD18-NxYY1m_s6zTd0vxum4J1N0";
 
         // Adiciona o event listener para o botão de gerar rascunho
         generateDraftButton.addEventListener('click', async () => {
@@ -1219,6 +1223,12 @@
             const part = geminiPartSelect.value;
             let prompt = '';
             let title = '';
+
+            if (GEMINI_API_KEY === "COLE_SUA_CHAVE_API_AQUI") {
+                geminiOutputText.textContent = 'Erro: A chave de API do Gemini não foi configurada. Por favor, edite o arquivo HTML e adicione sua chave.';
+                geminiOutputDiv.classList.remove('hidden');
+                return;
+            }
 
             if (!topic) {
                 alert('Por favor, selecione um tema ou digite o seu para continuar.');
@@ -1245,11 +1255,10 @@
 
             try {
                 // Configuração da chamada à API
-                const chatHistory = [];
-                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-                const payload = { contents: chatHistory };
-                const apiKey = "";
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+                const payload = {
+                    contents: [{ parts: [{ text: prompt }] }]
+                };
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-preview-0514:generateContent?key=${GEMINI_API_KEY}`;
                 
                 // Realiza a chamada à API
                 const response = await fetch(apiUrl, {
@@ -1259,7 +1268,8 @@
                 });
                 
                 if (!response.ok) {
-                    throw new Error(`Erro na API: ${response.statusText}`);
+                    const errorBody = await response.text();
+                    throw new Error(`Erro na API: ${response.status} ${response.statusText}. Detalhes: ${errorBody}`);
                 }
                 
                 const result = await response.json();
@@ -1275,12 +1285,11 @@
                     geminiOutputDiv.classList.remove('hidden');
                     
                 } else {
-                    geminiOutputText.textContent = 'Não foi possível gerar um rascunho. Tente novamente.';
-                    geminiOutputDiv.classList.remove('hidden');
+                    throw new Error("A resposta da API não contém o conteúdo esperado.");
                 }
             } catch (error) {
-                console.error('Erro ao chamar a API do Gemini:', error);
-                geminiOutputText.textContent = 'Ocorreu um erro ao gerar o rascunho. Verifique sua conexão e tente novamente.';
+                console.error('Erro detalhado ao chamar a API do Gemini:', error);
+                geminiOutputText.textContent = 'Ocorreu um erro ao gerar o rascunho. Verifique sua conexão, a chave de API, e tente novamente.';
                 geminiOutputDiv.classList.remove('hidden');
             } finally {
                 // Restaura o estado do botão e esconde o spinner
